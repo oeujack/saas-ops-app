@@ -1,0 +1,9 @@
+{
+  "name": "@saas-ops/shared-config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./eslint-base": "./eslint-base.js"
+  }
+}

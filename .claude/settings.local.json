@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//usr/bin/**)",
+      "Read(//home/jacks-u/**)",
+      "Bash(command -v nvm)",
+      "Read(//mnt/c/Program Files/nodejs/**)",
+      "Bash(\"/mnt/c/Program Files/nodejs/node.exe\" --version)",
+      "Bash(\"/mnt/c/Program Files/nodejs/npm.cmd\" --version)",
+      "Bash(\"/mnt/c/Program Files/nodejs/npm\" --version)",
+      "Bash(\"/mnt/c/Users/jacks/AppData/Roaming/npm/pnpm\" --version)",
+      "Read(//mnt/c/Users/jacks/AppData/Roaming/npm/**)",
+      "Bash(/mnt/c/Users/jacks/AppData/Roaming/npm/pnpm.cmd *)",
+      "Bash(docker --version)",
+      "Bash(docker compose *)",
+      "Read(//mnt/c/Program Files/Docker/Docker/resources/bin/**)",
+      "Bash(\"/mnt/c/Program Files/Docker/Docker/resources/bin/docker\" --version)",
+      "Bash(psql --version)",
+      "Bash(redis-cli --version)",
+      "Bash(sudo apt-get update -qq)",
+      "Bash(pg_lsclusters)",
+      "Bash(pg_ctl --version)",
+      "Read(//usr/**)",
+      "Bash(apt-cache show *)",
+      "Read(//var/run/**)",
+      "Read(//mnt/c/**)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
