@@ -9,10 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root';
+import { Route as RegisterRouteImport } from './routes/register';
+import { Route as LoginRouteImport } from './routes/login';
 import { Route as AppRouteImport } from './routes/_app';
 import { Route as IndexRouteImport } from './routes/index';
-import { Route as LoginRouteImport } from './routes/login';
-import { Route as RegisterRouteImport } from './routes/register';
 import { Route as AppTeamRouteImport } from './routes/_app/team';
 import { Route as AppSubscriptionsRouteImport } from './routes/_app/subscriptions';
 import { Route as AppSettingsRouteImport } from './routes/_app/settings';
@@ -22,13 +22,9 @@ import { Route as AppIntegrationsRouteImport } from './routes/_app/integrations'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard';
 import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics';
 
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
-  getParentRoute: () => rootRouteImport,
-} as any);
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any);
 const LoginRoute = LoginRouteImport.update({
@@ -36,9 +32,13 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any);
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any);
 const AppTeamRoute = AppTeamRouteImport.update({
@@ -111,9 +111,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/': typeof IndexRoute;
+  '/_app': typeof AppRouteWithChildren;
   '/login': typeof LoginRoute;
   '/register': typeof RegisterRoute;
-  '/_app': typeof AppRouteWithChildren;
   '/_app/analytics': typeof AppAnalyticsRoute;
   '/_app/dashboard': typeof AppDashboardRoute;
   '/_app/integrations': typeof AppIntegrationsRoute;
@@ -153,9 +153,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_app'
     | '/login'
     | '/register'
-    | '/_app'
     | '/_app/analytics'
     | '/_app/dashboard'
     | '/_app/integrations'
@@ -168,13 +168,27 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  AppRoute: typeof AppRouteWithChildren;
   LoginRoute: typeof LoginRoute;
   RegisterRoute: typeof RegisterRoute;
-  AppRoute: typeof AppRouteWithChildren;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/register': {
+      id: '/register';
+      path: '/register';
+      fullPath: '/register';
+      preLoaderRoute: typeof RegisterRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/login': {
+      id: '/login';
+      path: '/login';
+      fullPath: '/login';
+      preLoaderRoute: typeof LoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/_app': {
       id: '/_app';
       path: '';
@@ -187,20 +201,6 @@ declare module '@tanstack/react-router' {
       path: '/';
       fullPath: '/';
       preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/login': {
-      id: '/login';
-      path: '/login';
-      fullPath: '/login';
-      preLoaderRoute: typeof LoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    '/register': {
-      id: '/register';
-      path: '/register';
-      fullPath: '/register';
-      preLoaderRoute: typeof RegisterRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/_app/team': {
@@ -288,9 +288,9 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
-  AppRoute: AppRouteWithChildren,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

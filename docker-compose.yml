@@ -54,7 +54,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./apps/web/src:/app/apps/web/src
+      - ./apps/web:/app/apps/web
       - web_node_modules:/app/node_modules
       - web_app_node_modules:/app/apps/web/node_modules
     depends_on:
