@@ -45,6 +45,33 @@ services:
     volumes:
       - meilisearch_data:/meili_data
 
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    container_name: saas-ops-api
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: postgresql://saasops:saasops_dev_pass@postgres:5432/saasops
+      REDIS_URL: redis://:saasops_redis_pass@redis:6379
+      MEILI_URL: http://meilisearch:7700
+      MEILI_MASTER_KEY: saasops_meili_key
+      JWT_SECRET: dev-jwt-secret-change-in-production
+      JWT_EXPIRES_IN: 7d
+    volumes:
+      - ./apps/api/src:/app/apps/api/src
+      - api_node_modules:/app/node_modules
+      - api_app_node_modules:/app/apps/api/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
   web:
     build:
       context: .
@@ -53,11 +80,15 @@ services:
     restart: unless-stopped
     ports:
       - '3000:3000'
+    environment:
+      API_TARGET_URL: http://api:3001
     volumes:
       - ./apps/web:/app/apps/web
       - web_node_modules:/app/node_modules
       - web_app_node_modules:/app/apps/web/node_modules
     depends_on:
+      api:
+        condition: service_started
       postgres:
         condition: service_healthy
       redis:
@@ -67,5 +98,7 @@ volumes:
   postgres_data:
   redis_data:
   meilisearch_data:
+  api_node_modules:
+  api_app_node_modules:
   web_node_modules:
   web_app_node_modules:
