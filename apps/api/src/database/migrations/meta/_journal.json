@@ -8,6 +8,13 @@
       "when": 1778976669171,
       "tag": "0000_sleepy_peter_parker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1747440000000,
+      "tag": "0001_auth_and_subscriptions",
+      "breakpoints": true
     }
   ]
 }

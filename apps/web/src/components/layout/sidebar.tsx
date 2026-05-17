@@ -11,6 +11,7 @@ import {
   Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/store/auth.store';
 
 interface NavItem {
   label: string;
@@ -32,6 +33,7 @@ const navItems: NavItem[] = [
 export function Sidebar() {
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const { user, org } = useAuthStore();
 
   return (
     <aside className="border-sidebar-border bg-sidebar flex h-screen w-60 flex-col border-r">
@@ -64,11 +66,15 @@ export function Sidebar() {
       <div className="border-sidebar-border border-t p-4">
         <div className="flex items-center gap-3 rounded-md px-2 py-2">
           <div className="bg-sidebar-primary text-sidebar-primary-foreground flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold">
-            AC
+            {org?.name?.slice(0, 2).toUpperCase() ?? 'AC'}
           </div>
           <div className="flex-1 overflow-hidden">
-            <p className="text-sidebar-foreground truncate text-sm font-medium">Acme Corp</p>
-            <p className="text-sidebar-foreground/50 truncate text-xs">Free plan</p>
+            <p className="text-sidebar-foreground truncate text-sm font-medium">
+              {org?.name ?? 'Loading…'}
+            </p>
+            <p className="text-sidebar-foreground/50 truncate text-xs capitalize">
+              {org?.plan ?? 'free'} plan · {user?.name ?? ''}
+            </p>
           </div>
         </div>
       </div>

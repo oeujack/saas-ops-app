@@ -11,6 +11,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
@@ -33,16 +34,16 @@
     "react-i18next": "^15.5.2",
     "recharts": "^2.15.3",
     "tailwind-merge": "^3.3.0",
-    "zustand": "^5.0.5",
-    "zod": "^3.25.51"
+    "zod": "^3.25.51",
+    "zustand": "^5.0.5"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.8",
     "@tanstack/router-plugin": "^1.121.2",
     "@types/node": "^22.15.22",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
-    "@tailwindcss/vite": "^4.1.8",
     "tailwindcss": "^4.1.8",
     "typescript": "^5.8.3",
     "vite": "^6.3.5"

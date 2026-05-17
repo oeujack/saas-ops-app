@@ -36,4 +36,14 @@ export class AppConfigService {
   get allowedOrigins(): string[] {
     return this.config.get<string>('ALLOWED_ORIGINS', '').split(',').filter(Boolean);
   }
+
+  get jwtSecret(): string {
+    const secret = this.config.get<string>('JWT_SECRET');
+    if (!secret) throw new Error('JWT_SECRET is required');
+    return secret;
+  }
+
+  get jwtExpiresIn(): string {
+    return this.config.get<string>('JWT_EXPIRES_IN', '7d');
+  }
 }
