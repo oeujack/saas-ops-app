@@ -17,4 +17,7 @@ WORKDIR /app/apps/web
 
 EXPOSE 3000
 
-CMD ["pnpm", "dev"]
+# Re-run install on startup so the named volume for node_modules gets
+# populated even when the bind mount hides the image's apps/web directory.
+# Uses --prefer-offline since the pnpm store is already in the image.
+CMD ["sh", "-c", "cd /app && pnpm install --filter @saas-ops/web... --prefer-offline && pnpm --filter @saas-ops/web dev"]
