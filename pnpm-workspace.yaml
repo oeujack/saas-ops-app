@@ -1,3 +1,13 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+
+# pnpm v11: boolean map of packages allowed to run build scripts
+allowBuilds:
+  esbuild: true
+  '@nestjs/core': false
+  '@scarf/scarf': false
+
+# pnpm v9 compat (used in Docker via pnpm@9)
+onlyBuiltDependencies:
+  - esbuild
